@@ -122,7 +122,29 @@ $(function() {
      * if one is added in the future.
      */
     describe('Add New Feed', function(){
+        /* The number of feeds before adding one. */
+        var initialFeeds = allFeeds.length;
 
+        /* This test ensures that the new feed has been given a name.
+         */
+        it('has name', function(){
+            expect($('#feedName').length.not.toBe(0));
+        });
+
+        /* This test ensures that the new feed has been given a URL.
+         */
+        it('has URL', function(){
+            expect($('#feedUrl').length.not.toBe(0));
+        });
+
+        /* This test ensures that the number of feed has increased
+         * after the new feed information has been submitted.
+         */
+        it('adds feed', function(){
+            addFeed($('#feedName').val(), $('#feedUrl').val());
+            var updatedFeeds = allFeeds.length;
+            expect(updatedFeeds.not.toBe(initialFeeds));
+        });
     });
 
 
