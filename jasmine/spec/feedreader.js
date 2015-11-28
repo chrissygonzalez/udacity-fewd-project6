@@ -39,11 +39,10 @@ $(function() {
          * the name is not empty.
          */
         it('has name', function(){
-            var feedLength = allFeeds.length;
-            for (var i = 0; i < feedLength; i++) {
-                expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name.length).not.toBe(0);
-            }
+            allFeeds.forEach(function(feed){
+                expect(feed.name).toBeDefined();
+                expect(feed.name.length).not.toBe(0);
+            });
          });
     });
 
@@ -103,36 +102,34 @@ $(function() {
 
         beforeEach(function(done){
             loadFeed(0, function(){
-                startingHeader = $('h2:first').text();
+                startingFeed = $('.feed').html();
                 done();
             });
         });
 
         it('changes content', function(done){
             loadFeed(1, function(){
-                updatedHeader = $('h2:first').text();
-                expect(updatedHeader).not.toBe(startingHeader);
+                updatedFeed = $('.feed').html();
+                expect(updatedFeed).not.toBe(startingFeed);
                 done();
             });
         });
 
     });
 
-    /* TODO: This suite could be used to test an 'Add Feed' button
+    /* This suite could be used to test an 'Add Feed' button
      * if one is added in the future.
      */
     describe('Add New Feed', function(){
-        /* The number of feeds before adding one. */
+        // The number of feeds before adding one.
         var initialFeeds = allFeeds.length;
 
-        /* This test ensures that the new feed has been given a name.
-         */
+        // This test ensures that the new feed has been given a name.
         it('has name', function(){
             expect($('#feedName').length.not.toBe(0));
         });
 
-        /* This test ensures that the new feed has been given a URL.
-         */
+        // This test ensures that the new feed has been given a URL.
         it('has URL', function(){
             expect($('#feedUrl').length.not.toBe(0));
         });
